@@ -1,0 +1,28 @@
+version: "3"
+
+
+services:
+  mongo:
+    image: mongo
+    volumes: 
+      - "/home/ivan/mongo_database/db:/data/db"
+    ports:
+      - 27017:27017
+  
+  test_application_1:
+    build: app1/
+    ports:
+      - 9087:9087
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  test_application_2:
+    build: app2/
+    ports:
+      - 9086:9086
+    links:
+      - mongo
+    depends_on: 
+      - mongo
